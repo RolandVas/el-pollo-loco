@@ -1,6 +1,6 @@
 class Character extends MovableObject {
 
-    y = 230;
+    y = 230 ;
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-22.png',
@@ -9,14 +9,31 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png',
     ];
+
+    IMAGES_JUMPING = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-31.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-32.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-33.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-34.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-35.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-36.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-37.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-38.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png',
+    ];
     world;
     speed = 10;
-   
+    walking_sound = new Audio('audio/running.mp3')
+
 
 
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
+
+        this.applyGravity();
 
         this.animate();
     }
@@ -24,39 +41,42 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
-            if(this.world.keyboard.RIGHT) {
-                this.x += this.speed;
+            this.walking_sound.pause();
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.moveRight();
+                this.walking_sound.play();
                 this.otherDirection = false;
             }
 
-            if(this.world.keyboard.LEFT) {
-                this.x -= this.speed;
+            if (this.world.keyboard.LEFT && this.x > 100) {
+                this.moveLeft();
+                this.walking_sound.play();
                 this.otherDirection = true;
             }
-            
+            this.world.camera_x = -this.x + 100; /* camera_x verschiebt das Bild immer bei draw funktion aber nur einmal -> durch this.x += this.speed; oder this.x -= this.speed; wird den wert von camera_x immert erhöht oder verringert und daswegent bewegt sich die Kamera*/
+        
+            if(this.world.keyboard.SPACE && !this.isAboveGround() ) {
+                this.jump();
+            }
+        
         }, 1000 / 60);
 
         setInterval(() => {
 
-            if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            if (this.isAboveGround()) { /* wenn this.isAboveGround() = jump  aktiv ist soll das untere abgespielt werden */
+                this.playAnimation(this.IMAGES_JUMPING); /* jump animation abspielen */
+            } else { /* wenn jump nicht aktiev ist -> dann soll das Laufen animiert werden */
 
-            let i = this.currantImage % this.IMAGES_WALKING.length; /* i = 0 % 6; --> 0, Rest 0  ==>  1 % 6; --> 0, Rest 1   =====> mathematische rest rechnet immet aktueller zahl z.b 1/IMAGES_WALKING.length ====> 1/6=0,1 => Rest is 1
-            i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, */
-            let path = this.IMAGES_WALKING[i];
-            // ⬆⬆ neue versie// alte versio ==> let path = this.IMAGES_WALKING[this.currantImage]; /* von IMAGES_WALKING array stelle 0 --> currantImage ist eine variable 0*/
-            this.img = this.imageChace[path]; /* hier wird das erste Bild geladen siehe Moveble-object --> imageChace[path] ist das key und img das bild --> img ist als <img src="img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png"> definiert */
-            this.currantImage++;
-        }
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                }
+            }
         }, 1000 / 10); /* 10x pro sekunden wird das Bild aktualisiert */
-    
-    }
-
-
-
-
-
-    jump() {
 
     }
+
+
+
+
 
 }

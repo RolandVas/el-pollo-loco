@@ -5,20 +5,22 @@ class Cloud extends MovableObject { /* extends MovableObject das heisst das clou
 
 
     constructor() {
-       super().loadImage('img/5.Fondo/Capas/4.nubes/1.png');
-   
-       this.x = Math.random() * 300; 
-       this.animate();
-   }
+        super().loadImage('img/5.Fondo/Capas/4.nubes/1.png');
+
+        this.x = Math.random() * 600;
+        this.animate();
+    }
 
 
 
 
 
 
-   animate() {
-   this.moveLeft();
-}
+    animate() {
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60); /* hier gibt man die Zeit ein immer in milisekunden z.b 1000 -> das ist 1s */
+    }
 
 
 

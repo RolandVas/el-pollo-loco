@@ -1,23 +1,12 @@
 class World {
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-    ];
-    clouds = [
-        new Cloud(),
-    ]
-    backgroundObjects = [
-        new backgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0),
-        new backgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 0),
-        new backgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 0),
-        new backgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0),
-    ]
+    level = level1;
 
     canvas; /* canvas aus constructor(canvas) rausgeholt, damit man das in andere functionen verwenden kann */
     ctx;
     keyboard;
+    camera_x = 0;
+
 
 
 
@@ -27,6 +16,18 @@ class World {
         this.keyboard = keyboard
         this.draw();
         this.setWorld(); /* mit diese function können wir die gedrückte taster an character weitergeben  */
+        this.checkCollisions();
+    }
+
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach( enemy => {
+                if (this.character.isColliding(enemy)) {
+                    console.log('Collision with Character', enemy)
+                }
+            });
+        }, 200);
     }
 
 
@@ -38,12 +39,14 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height) /* clear canva for redrawing */
 
-        this.AddObjectsToMap(this.backgroundObjects);
+        this.ctx.translate(this.camera_x, 0);/* Camera wird im X verschoben -> danach wird alles gezeichnet und dann wird X zurrückgeschoben -> so verhidert man dass das Bild ewig vershoben wird */
+
+        this.AddObjectsToMap(this.level.backgroundObjects);
         this.AddToMap(this.character);
-        this.AddObjectsToMap(this.enemies);
-        this.AddObjectsToMap(this.clouds);
+        this.AddObjectsToMap(this.level.enemies);
+        this.AddObjectsToMap(this.level.clouds);
 
-
+        this.ctx.translate(-this.camera_x, 0);
 
         /* Draw wird immer wieder aufgerufen */
         let self = this;
@@ -58,21 +61,34 @@ class World {
         })
     }
 
-    AddToMap(objest) { /* add 1 object to map - nur einen object - siehe video 13 */
-        if (objest.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(objest.width, 0);
-            this.ctx.scale(-1, 1);
-            objest.x = objest.x * -1;
+    AddToMap(object) { /* add 1 object to map - nur einen object - siehe video 13 */
+        if (object.otherDirection) {
+            this.flipImage(object)
         }
 
-        this.ctx.drawImage(objest.img, objest.x, objest.y, objest.width, objest.height);
+        object.draw(this.ctx);
+        object.drawFrame(this.ctx);
 
-        if (objest.otherDirection) {
-            objest.x = objest.x * -1;
-            this.ctx.restore();
+
+
+        if (object.otherDirection) {
+            this.flipImageBack(object);
         }
+
     }
+
+    flipImage(object) {
+        this.ctx.save();
+        this.ctx.translate(object.width, 0);
+        this.ctx.scale(-1, 1);
+        object.x = object.x * -1;
+    }
+
+    flipImageBack(object) {
+        object.x = object.x * -1;
+        this.ctx.restore();
+    }
+
 
 }
 

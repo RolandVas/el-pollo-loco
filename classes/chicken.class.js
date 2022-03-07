@@ -1,7 +1,7 @@
 class Chicken extends MovableObject {
 
-    y = 340;
-    height = 100;
+    y = 350;
+    height = 80;
     width = 50;
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
@@ -26,7 +26,12 @@ class Chicken extends MovableObject {
 
 
     animate() {
-        this.moveLeft();
+
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60); /* hier gibt man die Zeit ein immer in milisekunden z.b 1000 -> das ist 1s */
+
+        
 
         setInterval(() => {
             let i = this.currantImage % this.IMAGES_WALKING.length; /* i = 0 % 6; --> 0, Rest 0  ==>  1 % 6; --> 0, Rest 1   =====> mathematische rest rechnet immet aktueller zahl z.b 1/IMAGES_WALKING.length ====> 1/6=0,1 => Rest is 1

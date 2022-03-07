@@ -10,7 +10,9 @@ class MovableObject {
     otherDirection = false;
 
     speedY = 0;
-    acceleration = 3;
+    acceleration = 1.5; /* jump height  */
+
+    energy = 100;
 
     applyGravity() { /* springen */
         setInterval(() => {
@@ -18,7 +20,7 @@ class MovableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration
             }
-        }, 1000 / 25);
+        }, 1000 / 30); /* jump speed */
     }
 
     draw(ctx) {
@@ -86,6 +88,17 @@ class MovableObject {
 
     jump() {
         this.speedY = 20;
+    }
+
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
+    }
+
+    isDead() {
+        return this.energy == 0;
     }
 
 

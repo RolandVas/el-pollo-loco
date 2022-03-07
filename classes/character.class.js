@@ -7,7 +7,7 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-23.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-24.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
-        'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png'
     ];
 
     IMAGES_JUMPING = [
@@ -20,7 +20,23 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-37.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-38.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png',
-        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png'
+    ];
+
+    IMAGES_DEAD = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-51.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-52.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-53.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-54.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-55.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-56.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png'
+    ];
+
+    IMAGES_HURT = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-41.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
     ];
     world;
     speed = 10;
@@ -32,6 +48,7 @@ class Character extends MovableObject {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DEAD);
 
         this.applyGravity();
 
@@ -63,6 +80,9 @@ class Character extends MovableObject {
 
         setInterval(() => {
 
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            }
             if (this.isAboveGround()) { /* wenn this.isAboveGround() = jump  aktiv ist soll das untere abgespielt werden */
                 this.playAnimation(this.IMAGES_JUMPING); /* jump animation abspielen */
             } else { /* wenn jump nicht aktiev ist -> dann soll das Laufen animiert werden */

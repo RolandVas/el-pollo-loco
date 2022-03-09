@@ -6,6 +6,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
 
 
 
@@ -26,6 +27,7 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
                     console.log('Collision with Character energy', this.character.energy)
+                    this.statusBar.setPercentage(this.character.energy) /* leben wird von statusBar abgezogen */
                 }
             });
         }, 200);
@@ -44,6 +46,12 @@ class World {
 
         this.AddObjectsToMap(this.level.backgroundObjects);
         this.AddToMap(this.character);
+
+        this.ctx.translate(-this.camera_x, 0);
+        /* ------ Space for fixed objects ------ */
+        this.AddToMap(this.statusBar)
+        this.ctx.translate(this.camera_x, 0);
+
         this.AddObjectsToMap(this.level.enemies);
         this.AddObjectsToMap(this.level.clouds);
 

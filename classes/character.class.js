@@ -49,6 +49,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
 
         this.applyGravity();
 
@@ -82,8 +83,9 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            }
-            if (this.isAboveGround()) { /* wenn this.isAboveGround() = jump  aktiv ist soll das untere abgespielt werden */
+            } else if(this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.isAboveGround()) { /* wenn this.isAboveGround() = jump  aktiv ist soll das untere abgespielt werden */
                 this.playAnimation(this.IMAGES_JUMPING); /* jump animation abspielen */
             } else { /* wenn jump nicht aktiev ist -> dann soll das Laufen animiert werden */
 

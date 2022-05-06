@@ -1,5 +1,5 @@
 class Cloud extends MovableObject { /* extends MovableObject das heisst das cloud die gleiche befehle hat wie MovableObject - als würde man die gleiche befhele hier reinkopieren  */
-    y = 10;
+    y = 40;
     height = 250;
     width = 500;
 

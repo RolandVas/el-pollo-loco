@@ -1,17 +1,64 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let music_on = false;
+
+gamemusic = new Audio('audio/music.mp3')
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+}
 
- console.log('My Character is', world.character)
+function restart() {
+    
+    location.reload();
+    
+}
+
+function win() {
+    document.getElementById('game').classList.add('d-none');
+    document.getElementById('win').classList.remove('d-none');
+    gamemusic.pause();
+}
+
+function gameOver() {
+    document.getElementById('game').classList.add('d-none');
+    document.getElementById('gameOver').classList.remove('d-none');
+    gamemusic.pause();
+}
+
+function startGame() {
+    initlevel()
+    init();
+    playMusic();
+    document.getElementById('start').classList.add('d-none');
+    document.getElementById('game').classList.remove('d-none');
+    document.getElementById('win').classList.add('d-none');
+}
+
+function playMusic() {
+    gamemusic.loop = true;
+    gamemusic.play();
+    gamemusic.volume = 0.1;
+    music_on = true;
+    document.getElementById('mute').classList.remove('opacity')
+}
+
+function stopMusic() {
+
+    if (music_on) {
+        gamemusic.pause()
+        document.getElementById('mute').classList.add('opacity')
+        music_on = false;
+    } else {
+        playMusic();
+    }
+
 }
 
 
 window.addEventListener("keydown", (e) => {
-    console.log(e)
     if(e.keyCode == 39) {
         keyboard.RIGHT = true;
     }
@@ -36,11 +83,14 @@ window.addEventListener("keydown", (e) => {
         keyboard.SPACE = true;
     }
 
+    if(e.keyCode == 68) {
+        keyboard.D = true;
+    }
+
 })
 
 
 window.addEventListener("keyup", (e) => {
-    console.log(e)
     if(e.keyCode == 39) {
         keyboard.RIGHT = false;
     }
@@ -63,6 +113,10 @@ window.addEventListener("keyup", (e) => {
 
     if(e.keyCode == 32) {
         keyboard.SPACE = false;
+    }
+
+    if(e.keyCode == 68) {
+        keyboard.D = false;
     }
 
 })

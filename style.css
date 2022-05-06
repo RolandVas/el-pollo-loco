@@ -1,11 +1,101 @@
 body {
+    height: 98vh;
+    width: 98vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 canvas {
     background-color: black;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.startscreen {
+    height: 98vh;
+    width: 98vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.startimg {
+    margin-bottom: 16px;
+    width: 50%;
+    height: 50%;
+}
+
+.game {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.control {
+    display: flex;
+}
+
+.controlelement {
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.controlimg {
+    margin-left: 8px;
+    height: 50px;
+    width: 50px ;
+}
+
+.spacecontrolimg {
+    margin-left: 8px;
+    height: 50px;
+}
+
+.undobtn {
+    height: 50px;
+    margin: 8px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.mute {
+    height: 50px;
+    margin: 8px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.btn {
+    border-radius: 10px;
+    margin: 24px;
+    width: 200px;
+    height: 75px;
+    font-size: 30px;
+    font-weight: bolder;
+    background-color: white;
+    color: green;
+    border: 2px solid #555555;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+.btn:hover {
+    background-color: beige;
+    color: green;
+  }
+
+.opacity {
+    opacity: 0.5;
 }

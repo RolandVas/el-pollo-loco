@@ -1,9 +1,10 @@
 class Endboss extends MovableObject {
 
     y = 150;
-    x = 2200;
+    x = 2500;
     height = 300;
     width = 200;
+    energy = 25;
 
 
     IMAGES_WALKING = [
@@ -17,26 +18,95 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G12.png',
     ];
 
+    HURT_ENDBOSS = [
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G21.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G22.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G23.png'
+    ]
+
+    DEAD_ENDBOSS = [
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G24.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G25.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
+    ]
+
+
+
+    ANGRY_ENDBOSS = [
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G13.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G14.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G15.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G16.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G17.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G18.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G19.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G20.png',
+
+    ]
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.HURT_ENDBOSS);
+        this.loadImages(this.DEAD_ENDBOSS);
+        this.loadImages(this.ANGRY_ENDBOSS);
+
+
 
         this.animate();
+
+
     }
+
+
 
 
     animate() {
 
         setInterval(() => {
-            let i = this.currantImage % this.IMAGES_WALKING.length; /* i = 0 % 6; --> 0, Rest 0  ==>  1 % 6; --> 0, Rest 1   =====> mathematische rest rechnet immet aktueller zahl z.b 1/IMAGES_WALKING.length ====> 1/6=0,1 => Rest is 1
-            i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, */
-            let path = this.IMAGES_WALKING[i];
-            // ⬆⬆ neue versie// alte versio ==> let path = this.IMAGES_WALKING[this.currantImage]; /* von IMAGES_WALKING array stelle 0 --> currantImage ist eine variable 0*/
-            this.img = this.imageChace[path]; /* hier wird das erste Bild geladen siehe Moveble-object --> imageChace[path] ist das key und img das bild --> img ist als <img src="img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png"> definiert */
-            this.currantImage++;
+
+                if (this.isHurt()) {
+                    this.playAnimation(this.HURT_ENDBOSS);
+                } else
+
+
+
+                    if (this.isDead()) {
+                        
+
+                        setTimeout(() => {
+                            this.speed = 50;
+                            this.moveRight();
+                            this.playAnimation(this.DEAD_ENDBOSS);
+                        }, 500);
+
+                        setTimeout(() => {
+                            win();
+                        }, 1000);
+
+
+                    }
+
+
+                    else {
+                        if (this.energy <= 15) {
+
+                            this.x = 2800;
+                            this.playAnimation(this.ANGRY_ENDBOSS);
+                                
+                                                      
+                        } if (this.energy > 15) {
+                            this.playAnimation(this.IMAGES_WALKING);
+                        }
+                    }
+
+
+
         }, 1000 / 5); /* 10x pro sekunden wird das Bild aktualisiert */
     }
+
+
+
 
 
 

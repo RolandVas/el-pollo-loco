@@ -41,16 +41,20 @@ class Character extends MovableObject {
     world;
     speed = 10;
     walking_sound = new Audio('audio/running.mp3')
+    jumpsound = new Audio('audio/jump.mp3')
 
-
+    volumeOfSoundsCaracter() {
+        this.jumpsound.volume = 0.3;
+    }
 
     constructor() {
+        
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-
+        this.volumeOfSoundsCaracter()
         this.applyGravity();
 
         this.animate();
@@ -75,7 +79,9 @@ class Character extends MovableObject {
         
             if(this.world.keyboard.SPACE && !this.isAboveGround() ) {
                 this.jump();
+                this.jumpsound.play();
             }
+            
         
         }, 1000 / 60);
 
@@ -83,6 +89,8 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                // gameOver();
+                this.y = 500;
             } else if(this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) { /* wenn this.isAboveGround() = jump  aktiv ist soll das untere abgespielt werden */

@@ -1,13 +1,14 @@
 class MovableObject extends DrawableObject {
-   
-    
-   
+
+
+
     speed = 0.15; /* von x koordinate werden immer 0.15 px ebgezogen - function moveLeft*/
     otherDirection = false;
     speedY = 0;
     acceleration = 1.5; /* jump height  */
     energy = 100;
     lastHit = 0;
+    
 
 
     applyGravity() { /* springen */
@@ -37,7 +38,11 @@ class MovableObject extends DrawableObject {
 
 
     isAboveGround() {
-        return this.y < 230;
+        if (this instanceof ThrowableOject) {
+            return true;
+        } else {
+            return this.y < 230;
+        }
     }
 
 
@@ -77,6 +82,7 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; /* Differenc in ms */
         timepassed = timepassed / 1000; /* Differenc in s */
@@ -86,9 +92,6 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
-
-    
-
 
 
 }

@@ -8,7 +8,14 @@
     <script src="classes/drawable-object.class.js"> </script>
     <script src="classes/movable-object.class.js"> </script>
     <script src="classes/status-bar.class.js"> </script>
+    <script src="classes/bottle-bar.class.js"> </script>
+    <script src="classes/coin-bar.class.js"> </script>
+    <script src="classes/endboss-bar.class.js"> </script>
+    <script src="classes/collectable-bottles.class.js"> </script>
+    <script src="classes/collectable-coins.class.js"> </script>
+    <script src="classes/coin.class.js"> </script>
     <script src="classes/world.class.js"> </script>
+    <script src="classes/game-over.class.js"> </script>
     <script src="classes/character.class.js"> </script>
     <script src="classes/chicken.class.js"> </script>
     <script src="classes/cloud.class.js"> </script>
@@ -16,13 +23,59 @@
     <script src="classes/keyboard.class.js"> </script>
     <script src="classes/level.class.js"> </script>
     <script src="classes/endboss.class.js"> </script>
+    <script src="classes/throwable-object.class.js"></script>
     <script src="levels/level1.js"> </script>
     <script src="js/game.js"> </script>
     <title>EL_POLLO_POCO</title>
 </head>
-<body onload="init()">
+<body>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div id="start" class="startscreen">
+        <h1>El Pollo Loco</h1>
+        <img class="startimg" src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png">
+
+        <div class="control">
+            <div class="controlelement">
+                <span>Move right:</span>
+                <img class="controlimg" src="img/keyboard/right.png">
+            </div>
+            <div class="controlelement">
+                <span>Move left:</span>
+                <img class="controlimg" src="img/keyboard/left.png">
+            </div>
+            <div class="controlelement">
+                <span>Throw bottle:</span>
+                <img class="controlimg"  src="img/keyboard/d.png">
+            </div>
+            <div class="controlelement">
+                <span>Jump:</span>
+                <img class="spacecontrolimg"  src="img/keyboard/space.png">
+            </div>
+        </div>
+
+        <button class="btn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="win" class="startscreen d-none">
+        <img class="startimg" src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png">
+        <h1>You Win</h1>
+        <button class="btn" onclick="restart()">New Game</button>
+    </div>
+
+    <div id="gameOver" class="startscreen d-none">
+        <img class="startimg" src="img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png">
+        <h1>Game Over</h1>
+        <button class="btn" onclick="restart()">New Game</button>
+    </div>
+    
+    <div id="game" class="game d-none">
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <img class="undobtn" onclick="restart()" src="img/icon/undo.png">
+        <img class="mute" id="mute" onclick="stopMusic()" src="img/icon/music.png">
+    </div>
+    
+    <!-- <canvas id="canvas" width="720" height="480"></canvas>
+    <button onclick="restart()">Restart</button> -->
     
 </body>
 </html>

@@ -52,18 +52,12 @@ class World {
             this.checkCollisionsEndboss();
             this.checkThrowObject();
             this.collisionCharacterAboveEnemies()
-            this.checkCharacterX()
         }, 100);
     }
 
   
 
-    checkCharacterX() {
-        if (this.character.x > 2000) {
-            console.log('character is ower 2000 X')
-            
-        }
-    }
+   
 
 
     checkThrowObject() {
@@ -94,7 +88,6 @@ class World {
     checkCollisionsCoin() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                console.log('amount Of Coins ', this.coinBar.amountOfCoin);
                 this.coinBar.collectCoins();
                 this.level.coins.splice(index, 1);
                 this.coinBar.updateCoinBar();
@@ -111,8 +104,6 @@ class World {
             this.throwableObjects.forEach(throwBottle => {
 
                 if (throwBottle.isColliding(enemy) && !enemy.chickenDead) {
-
-                    console.log('bottle hit ', enemy)
                     this.chickensound.play();
                     this.level.enemies.splice(index, 1)
                 }
@@ -125,7 +116,6 @@ class World {
 
             if (throwBottle.isColliding(this.endboss)) {
                 this.endboss.hit();
-                console.log('bottle hit Endboss')
                 console.log('Endboss HP: ', this.endboss.energy)
                 this.endbossBar.updateEndbossBar(this.endboss.energy)
             }
@@ -137,7 +127,6 @@ class World {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy) && !enemy.chickenDead && !this.character.isAboveGround()) {
                 this.character.hit();
-                console.log('Collision with Character energy', this.character.energy)
                 this.statusBar.setPercentage(this.character.energy) /* leben wird von statusBar abgezogen */
                 this.hurtsound.play();
             }
@@ -195,9 +184,12 @@ class World {
         this.AddToMap(this.statusBar);
         this.AddToMap(this.bottleBar);
         this.AddToMap(this.coinBar);
-        this.AddToMap(this.endbossBar);
-
         
+
+        if (this.character.x > 2000) {
+            this.AddToMap(this.endbossBar);
+            
+        }
 
         this.ctx.translate(this.camera_x, 0);
 

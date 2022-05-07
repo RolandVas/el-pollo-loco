@@ -25,6 +25,7 @@ function win() {
 function gameOver() {
     document.getElementById('game').classList.add('d-none');
     document.getElementById('gameOver').classList.remove('d-none');
+    document.getElementById('win').classList.add('d-none');
     gamemusic.pause();
 }
 

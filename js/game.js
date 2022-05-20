@@ -5,15 +5,15 @@ let music_on = false;
 
 gamemusic = new Audio('audio/music.mp3')
 
+
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
+
 function restart() {
-    
     location.reload();
-    
 }
 
 function win() {
@@ -56,6 +56,12 @@ function stopMusic() {
         playMusic();
     }
 
+}
+
+
+
+function fullscreen() {
+    canvas.requestFullscreen()
 }
 
 

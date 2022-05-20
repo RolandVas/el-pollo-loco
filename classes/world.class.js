@@ -186,9 +186,8 @@ class World {
         this.AddToMap(this.coinBar);
         
 
-        if (this.character.x > 2000) {
+        if (this.character.x > 1900) {
             this.AddToMap(this.endbossBar);
-            
         }
 
         this.ctx.translate(this.camera_x, 0);

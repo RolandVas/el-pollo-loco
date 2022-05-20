@@ -19,7 +19,7 @@ class Cloud extends MovableObject { /* extends MovableObject das heisst das clou
     animate() {
         setInterval(() => {
             this.moveLeft();
-        }, 1000 / 60); /* hier gibt man die Zeit ein immer in milisekunden z.b 1000 -> das ist 1s */
+        }, 1000 / 60); /* hier gibt man die Zeit ein immer in millisekunden z.b 1000 -> das ist 1s */
     }
 
 

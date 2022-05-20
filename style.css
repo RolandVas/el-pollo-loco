@@ -7,8 +7,13 @@ body {
     align-items: center;
 }
 
+html, body {
+    overflow: hidden;
+}
+
 canvas {
     background-color: black;
+    display: flex;
 }
 
 .d-none {
@@ -27,7 +32,6 @@ canvas {
 .startimg {
     margin-bottom: 16px;
     width: 50%;
-    height: 50%;
 }
 
 .game {
@@ -77,6 +81,10 @@ canvas {
     cursor: pointer;
 }
 
+.top-0 {
+    top: 0;
+}
+
 .btn {
     border-radius: 10px;
     margin: 24px;
@@ -98,4 +106,31 @@ canvas {
 
 .opacity {
     opacity: 0.5;
+}
+
+
+@media only screen and (max-width: 720px) {
+    canvas{
+        width: 100%;
+    }
+}
+
+
+@media only screen and (max-height: 480px) {
+    canvas{
+        height: 100vh;
+    }
+}
+
+
+
+@media(max-width: 1000px) {
+    .control {
+        flex-direction: column;
+    }
+
+    .startimg {
+        width: 80%;
+    }
+
 }

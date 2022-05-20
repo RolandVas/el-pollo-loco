@@ -51,10 +51,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.DEAD_ENDBOSS);
         this.loadImages(this.ANGRY_ENDBOSS);
 
-
-
         this.animate();
-
 
     }
 
@@ -65,49 +62,30 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
 
-                if (this.isHurt()) {
-                    this.playAnimation(this.HURT_ENDBOSS);
-                } else
+            if (this.isHurt()) {
+                this.playAnimation(this.HURT_ENDBOSS);
+            } else
 
+                if (this.isDead()) {
+                    setTimeout(() => {
+                        this.speed = 50;
+                        this.moveRight();
+                        this.playAnimation(this.DEAD_ENDBOSS);
+                    }, 500);
+                    setTimeout(() => {
+                        win();
+                    }, 1000);
+                }
 
-
-                    if (this.isDead()) {
-                        
-
-                        setTimeout(() => {
-                            this.speed = 50;
-                            this.moveRight();
-                            this.playAnimation(this.DEAD_ENDBOSS);
-                        }, 500);
-
-                        setTimeout(() => {
-                            win();
-                        }, 1000);
-
-
+                else {
+                    if (this.energy <= 15) {
+                        this.playAnimation(this.ANGRY_ENDBOSS);
+                    } if (this.energy > 15) {
+                        this.playAnimation(this.IMAGES_WALKING);
                     }
-
-
-                    else {
-                        if (this.energy <= 15) {
-
-                            this.x = 2800;
-                            this.playAnimation(this.ANGRY_ENDBOSS);
-                                
-                                                      
-                        } if (this.energy > 15) {
-                            this.playAnimation(this.IMAGES_WALKING);
-                        }
-                    }
-
-
-
+                }
         }, 1000 / 5); /* 10x pro sekunden wird das Bild aktualisiert */
     }
-
-
-
-
 
 
 

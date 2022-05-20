@@ -13,14 +13,6 @@ class DrawableObject {
     }
 
     draw(ctx) {
-
-        // try {
-        //     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-        // } catch (e) {
-        //     console.log('error loading image ', e)
-        //     console.log('error loading image ', this.img.src)
-        // }
-
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
@@ -36,9 +28,6 @@ class DrawableObject {
     drawFrame(ctx) { /* blaue viereck zeigen */
         if (this instanceof Character || this instanceof Chicken || this instanceof Collectable) { /* Das blaue viereck nur für chicken und character verwenden */
             ctx.beginPath();
-            // ctx.lineWidth = "5";
-            // ctx.strokeStyle = "blue";
-            // ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
     }
